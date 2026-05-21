@@ -143,9 +143,52 @@ export default function Home() {
                             </div>
                         </form>
 
-                        <div className="bg-white p-6 rounded-xl shadow-sm border flex justify-between items-center">
-                            <p><strong>{savedReceipts.length}</strong> saved.</p>
-                            <button onClick={exportToCSV} className="bg-emerald-600 text-white px-4 py-2 rounded-md">Download CSV</button>
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <div className="flex justify-between items-center mb-4 border-b pb-2">
+                                <h2 className="text-xl font-semibold">3. Saved Receipts</h2>
+                                <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">
+                                    {savedReceipts.length} Total
+                                </span>
+                            </div>
+
+                            {savedReceipts.length > 0 ? (
+                                <ul className="space-y-2 mb-6 max-h-40 overflow-y-auto pr-2">
+                                    {savedReceipts.map((receipt, index) => (
+                                        <li key={index} className="flex justify-between items-center bg-gray-50 p-3 rounded-md border border-gray-200">
+                                            <div className="flex flex-col overflow-hidden mr-2">
+                                                <span className="text-sm font-semibold truncate">{receipt.merchantName}</span>
+                                                <span className="text-xs text-gray-500">{receipt.date} • {receipt.currency} {receipt.totalAmount}</span>
+                                            </div>
+                                            <button
+                                                onClick={() => handleDeleteReceipt(index)}
+                                                className="text-gray-400 hover:text-red-600 transition-colors text-lg font-bold px-2"
+                                                title="Remove receipt"
+                                            >
+                                                ✕
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-sm text-gray-500 italic mb-6 text-center py-4">No receipts saved yet.</p>
+                            )}
+
+                            <div className="flex gap-3">
+                                <button
+                                    type="button"
+                                    onClick={exportToCSV}
+                                    className="flex-1 bg-emerald-600 text-white font-medium px-4 py-2 rounded-md hover:bg-emerald-700 transition-colors"
+                                >
+                                    Download CSV
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleClearAll}
+                                    className="bg-red-50 text-red-600 border border-red-200 font-medium px-4 py-2 rounded-md hover:bg-red-100 transition-colors"
+                                >
+                                    Clear All
+                                </button>
+                            </div>
                         </div>
                     </div>
 
