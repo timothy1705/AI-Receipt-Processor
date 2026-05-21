@@ -91,6 +91,21 @@ export default function Home() {
         link.click();
     };
 
+    const handleDeleteReceipt = (indexToRemove: number) => {
+        const updatedReceipts = savedReceipts.filter((_, index) => index !== indexToRemove);
+        setSavedReceipts(updatedReceipts);
+        localStorage.setItem("savedReceiptsList", JSON.stringify(updatedReceipts));
+    };
+
+    const handleClearAll = () => {
+        if (savedReceipts.length === 0) return;
+        const confirmDelete = window.confirm("Are you sure you want to delete all saved receipts?");
+        if (confirmDelete) {
+            setSavedReceipts([]);
+            localStorage.setItem("savedReceiptsList", JSON.stringify([]));
+        }
+    };
+
     return (
         <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
             <div className="max-w-5xl mx-auto">
