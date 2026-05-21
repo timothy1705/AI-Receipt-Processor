@@ -25,4 +25,4 @@ To ensure the frontend could programmatically read the AI's response without for
 1. **Clone the repository** and navigate into the project folder.
 2. **Install dependencies:**
    ```bash
-   npm install
+   npm run dev
